@@ -1,8 +1,12 @@
+$white: #ffffff;
+
 .navbar {
-  background-color: #ffffff;
+  background-color: $white;
   width: 100vw;
-  text-align: center;
+  margin-bottom: 5%;
   h1 {
+    text-align: center;
+    padding: 2%;
     margin: 0px;
   }
 }
