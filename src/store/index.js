@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 
 // import user from './user'
 
-
 Vue.use(Vuex)
 
 export default function (/* { ssrContext } */) {
