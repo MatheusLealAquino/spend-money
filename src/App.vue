@@ -2,9 +2,10 @@
   <div id="app">
     <Navbar appName="Spend Money"/>
     <Header 
-      :title="header.title"
+      :name="header.name"
       :image="header.image"
     />
+    <MoneyCard/>
   </div>
 </template>
 
@@ -13,21 +14,24 @@
 <script>
 import Navbar from './components/Navbar.vue'
 import Header from './components/Header.vue'
+import MoneyCard from './components/MoneyCard.vue'
 
 export default {
   name: 'App',
   components: {
     Navbar,
-    Header
+    Header,
+    MoneyCard
   },
   data: () => ({
     header: {
-      title: '',
+      name: '',
       image: ''
     }
   }),
   created () {
-    this.header.title = `Spend Bill Gates' Money`
+    this.$store.commit('wallet/setTotalAmount', 900000)
+    this.header.name = `Bill Gates'`
     this.header.image = '/static/images/persons/billgates.png'
   }
 }

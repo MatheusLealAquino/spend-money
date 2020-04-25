@@ -1,7 +1,7 @@
 <template>
-  <div class="header">
-    <img alt="Vue logo" :src="image">
-    <h1>{{title}}</h1>
+  <div class="card header">
+    <img :alt="name" :src="image">
+    <h1>{{`Spend ${name} Money`}}</h1>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 export default {
   name: 'Header',
   props: {
-    title: String,
+    name: String,
     image: String
   },
   methods: {
