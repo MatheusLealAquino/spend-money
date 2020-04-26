@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <Navbar appName="Spend Money"/>
-    <Header 
-      :name="header.name"
-      :image="header.image"
+    <Header
+      v-if="name"
+      :name="name"
+      :image="image"
     />
     <MoneyCard/>
   </div>
@@ -24,15 +25,23 @@ export default {
     MoneyCard
   },
   data: () => ({
-    header: {
-      name: '',
-      image: ''
-    }
   }),
+  computed: {
+    name: {
+      get () {
+        return this.$store.state.wallet.name
+      }
+    },
+    image: {
+      get () {
+        return this.$store.state.wallet.image
+      }
+    }
+  },
   created () {
     this.$store.commit('wallet/setTotalAmount', 900000)
-    this.header.name = `Bill Gates'`
-    this.header.image = '/static/images/persons/billgates.png'
+    this.$store.commit('wallet/setName', `Bill Gates'`)
+    this.$store.commit('wallet/setImage', '/static/images/persons/billgates.png')
   }
 }
 </script>
