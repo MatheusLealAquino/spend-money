@@ -17,7 +17,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('wallet/increment', 50)
+    // this.$store.dispatch('wallet/increment', 50)
   }
 }
 </script>

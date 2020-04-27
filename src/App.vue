@@ -10,7 +10,7 @@
     <ItemCard
       :image="headerImage"
       name="Big Mac"
-      price="2"
+      price="1"
     />
   </div>
 </template>
@@ -46,7 +46,8 @@ export default {
     }
   },
   created () {
-    this.$store.commit('wallet/setTotalAmount', 900000)
+    this.$store.commit('wallet/setTotalAmount', 90000000000)
+    this.$store.dispatch('wallet/increment', 50)
     this.$store.commit('wallet/setName', `Bill Gates'`)
     this.$store.commit('wallet/setImage', '/static/images/persons/billgates.png')
   }
