@@ -1,22 +1,25 @@
 <template>
   <div id="app">
     <Navbar appName="Spend Money"/>
-    <Header
-      v-if="headerName"
-      :name="headerName"
-      :image="headerImage"
-    />
-    <MoneyCard/>
-    <ItemCard
-      :image="headerImage"
-      name="Big Mac"
-      price="1"
-    />
-    <ItemCard
-      :image="headerImage"
-      name="Coffee"
-      price="2"
-    />
+    <div class="container">
+      <Header
+        v-if="headerName"
+        :name="headerName"
+        :image="headerImage"
+      />
+    </div>
+
+    <div class="container container__row">
+      <MoneyCard/>
+
+      <div class="col-4" v-for="item in items" :key="item.name">
+        <ItemCard
+          :image="item.image"
+          :name="item.name"
+          :price="item.price"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -27,6 +30,8 @@ import Navbar from './components/Navbar.vue'
 import Header from './components/Header.vue'
 import MoneyCard from './components/MoneyCard.vue'
 import ItemCard from './components/ItemCard.vue'
+import { persons } from './constants/seed_person'
+import { items } from './constants/seed_items'
 
 export default {
   name: 'App',
@@ -37,6 +42,7 @@ export default {
     ItemCard
   },
   data: () => ({
+    items: []
   }),
   computed: {
     headerName: {
@@ -50,11 +56,19 @@ export default {
       }
     }
   },
+  methods: {
+    getPerson(id) {
+      return persons.find(el => el.id === id)
+    }
+  },
   created () {
-    this.$store.commit('wallet/setTotalAmount', 90000000000)
-    this.$store.dispatch('wallet/increment', 100)
-    this.$store.commit('wallet/setName', `Bill Gates'`)
-    this.$store.commit('wallet/setImage', '/static/images/persons/billgates.png')
+    const person = this.getPerson(1)
+    this.$store.commit('wallet/setTotalAmount', person.totalAmount)
+    this.$store.dispatch('wallet/increment', person.totalAmount)
+    this.$store.commit('wallet/setName', person.name)
+    this.$store.commit('wallet/setImage', person.image)
+
+    this.items = items
   }
 }
 </script>

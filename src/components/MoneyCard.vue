@@ -15,9 +15,6 @@ export default {
         return this.$store.state.wallet.value
       }
     }
-  },
-  created () {
-    // this.$store.dispatch('wallet/increment', 50)
   }
 }
 </script>

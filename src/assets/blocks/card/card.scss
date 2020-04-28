@@ -1,7 +1,6 @@
 .card {
-  width: 100vw;
   background-color: $white;
-  padding: 1%;
+  padding: 5%;
   margin-bottom: 3%;
 }
 
@@ -17,6 +16,7 @@
 }
 
 .card__money {
+  padding: 1%;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
