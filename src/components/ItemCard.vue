@@ -22,9 +22,7 @@ export default {
   },
   data: () => ({
     quantity: 0,
-    totalSpent: 0,
-    lastMaxQuantity: 0,
-    topNumber: false
+    lastMaxQuantity: 0
   }),
   computed: {
     moneyValue: {
@@ -42,7 +40,7 @@ export default {
     },
     getMaxQuatity() {
       const result = Math.floor(Number(this.moneyValue)/Number(this.price))
-      if (result > 0 && result > this.lastMaxQuantity) this.lastMaxQuantity = result
+      if (result > 0) this.lastMaxQuantity = result
       return result
     }
   },
@@ -51,26 +49,20 @@ export default {
       newVal = Number(newVal)
       oldVal = Number(oldVal)
 
-      if (newVal < 0) {
-        this.quantity = 0
-      } else if (newVal >= 0) {
-        const maxQuantity = this.getMaxQuatity()
-        const difference = Math.abs(newVal - oldVal)
-        const value = Math.abs(Number(this.price) * difference)
+      const maxQuantity = this.getMaxQuatity()
+      const difference = Math.abs(newVal - oldVal)
+      const value = Math.abs(Number(this.price) * difference)
+      let lastMaxQuantity = Number(this.lastMaxQuantity)
 
-        if ((maxQuantity === 0 || maxQuantity < newVal) && difference > maxQuantity && newVal > oldVal) {
-          if (maxQuantity < newVal) {
-            this.$store.dispatch('wallet/decrement', Math.abs(Number(this.price) * maxQuantity));
-          }
-          this.quantity = Number(this.lastMaxQuantity);
-        } else if (maxQuantity === 0 || this.lastMaxQuantity >= newVal) {
-          if (((newVal && !oldVal) || (newVal > oldVal)) && oldVal >= 0) { // Buy
-            this.$store.dispatch('wallet/decrement', value);
-          } else if (newVal < oldVal || oldVal < 0) { // Sell
-            if (this.lastMaxQuantity !== newVal) this.$store.dispatch('wallet/increment', value);
-          }
-        }
+      if (newVal > oldVal && maxQuantity != 0) { // Buy
+        this.$store.dispatch('wallet/decrement', value)
+      } else if ((newVal < oldVal && this.moneyValue !== 0) || this.moneyValue === 0) { // Sell
+        this.$store.dispatch('wallet/increment', value)
+      } else if (lastMaxQuantity > 0 && maxQuantity === 0 && this.moneyValue === 0) {
+        this.$store.dispatch('wallet/decrement', Number(this.price) * oldVal)        
+        this.quantity = lastMaxQuantity
       }
+      this.getMaxQuatity()
     }
   }
 }

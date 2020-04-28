@@ -1,5 +1,5 @@
 <template>
-  <div class="card card__success">
+  <div class="card card__success card__money">
     <h1>${{value}} left</h1>
   </div>
 </template>
