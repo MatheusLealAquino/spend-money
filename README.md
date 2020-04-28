@@ -1,5 +1,8 @@
 # spend-money
 
+## Link to heroku
+https://spend-money.herokuapp.com/
+
 ## Project setup
 ```
 npm install
