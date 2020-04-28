@@ -2,13 +2,15 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import wallet from './wallet'
+import items from './items'
 
 Vue.use(Vuex)
 
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      wallet
+      wallet,
+      items
     },
     plugins: [],
     // enable strict mode (adds overhead!)
